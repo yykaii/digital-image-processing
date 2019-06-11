@@ -34,9 +34,12 @@ if __name__ == '__main__':
     gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)#彩色转灰度图
     if isShowImage:
         showCV2Image('gray', gray)
+    color = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+    if isShowImage:
+        showCV2Image('color', color)
     average = np.mean(gray)#求原图的平均灰度
     rows, cols = gray.shape
-    block = 16
+    block = 32
     rows_new = int(np.ceil(rows/block))
     cols_new = int(np.ceil(cols/block))#将原图根据block大小，划分为rows_new*cols_new大小的块
     block_image = np.zeros((rows_new, cols_new), dtype=np.float32)#求每一块的灰度均值，构成矩阵
