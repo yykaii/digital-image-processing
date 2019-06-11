@@ -35,6 +35,7 @@ if __name__ == '__main__':
     if isShowImage:
         showCV2Image('gray', gray)
     color = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+    print(color.shape)
     if isShowImage:
         showCV2Image('color', color)
     average = np.mean(gray)#求原图的平均灰度
@@ -64,10 +65,45 @@ if __name__ == '__main__':
     dst = gray2 - block_image2
     dst = dst.astype(np.uint8)
     dst = cv2.GaussianBlur(dst, (3, 3), 0)
-    dst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
+    #dst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
+    #此处需要注意灰度图转彩色图的伪彩色技术，需要继续处理，否则出来的仍为灰度图，是一种彩色图的索引
     cv2.imwrite('4_1.jpg', dst)
     if isShowImage:
         showCV2Image('dst', dst)
+
+    [m, n] = dst.shape
+    dst_color = np.zeros((m, n, 3))
+    for i in range(m):#r
+        for j in range(n):
+            if dst[i, j] <= 127:
+                dst_color[i, j, 2] = 0
+            elif dst[i, j] <= 191:
+                dst_color[i, j, 2] = 4*dst[i, j] -510
+            else:
+                dst_color[i, j, 2] = 255
+
+    for i in range(m):#g
+        for j in range(n):
+            if dst[i, j] <= 63:
+                dst_color[i, j, 1] = 254-4*dst[i, j]
+            elif dst[i, j] <= 127:
+                dst_color[i, j, 1] = 4*dst[i, j] -254
+            elif dst[i, j] <= 191:
+                dst_color[i, j, 1] = 255
+            else:
+                dst_color[i, j, 1] = 1022-4*dst[i, j]
+
+    for i in range(m):#b
+        for j in range(n):
+            if dst[i, j] <= 63:
+                dst_color[i, j, 0] = 255
+            elif dst[i, j] <= 127:
+                dst_color[i, j, 0] = 510-4*dst[i, j]
+            else:
+                dst_color[i, j, 0] = 0
+    dst_color = dst_color.astype(np.uint8)
+    if isShowImage:
+        showCV2Image('dst_color', dst_color)
 
     # 下面进行图像增强操作
     src1 = Image.open('4_1.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
