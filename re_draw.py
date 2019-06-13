@@ -1,15 +1,33 @@
 # -*- coding:utf-8 -*-
 import cv2
+import numpy as np
+from skimage import exposure
+from remove_light import removelight, image_enhancement
 from PIL import Image
 from PIL import ImageEnhance
-import numpy as np
+
 
 isShowImage = True
-
 def showCV2Image(title, img):
     cv2.namedWindow(title, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)#调整窗口大小并保持比例
     cv2.imshow(title, img)
     cv2.waitKey(0)
+
+
+def adap_hist(img):
+    bgr = cv2.split(img)
+    bgr_adap = []  # 自适应直方图均衡化
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(32, 32))
+    for i in range(len(bgr)):
+        adap_hist = clahe.apply(bgr[i])
+        bgr_adap.append(adap_hist)
+
+    bgr_adap_merge = cv2.merge(bgr_adap)
+    if isShowImage:
+        showCV2Image('bgr_adap_merge', bgr_adap_merge)
+    # cv2.imwrite('Johns_Form_2.jpg', bgr_adap_merge)
+
+    return bgr_adap_merge
 
 def removelight(img, block):
     average = np.mean(img)  # 求原图的平均灰度
@@ -70,40 +88,4 @@ def image_enhancement(img):
     gf_colored.save('Johns_DL_colored.jpg')
 
     return gf_contrast
-
-if __name__ == '__main__':
-    src = cv2.imread('Johns_Form.jpg')#原始图像
-
-    # (b, g, r) = cv2.split(src)#分离通道
-    # gf = cv2.merge([b, g, r])#通道合并
-
-    #图像归一化
-    #若光照不均非常明显，则归一化可起到一些作用
-    # [rows, cols, depth] = src.shape
-    # dst = np.zeros([rows, cols, depth], dtype='uint8')
-    # dst = cv2.normalize(src, dst=dst, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
-    # if isShowImage:
-    #     showCV2Image('dst_b', dst)
-
-
-    gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)#彩色转灰度图
-    if isShowImage:
-        showCV2Image('gray', gray)
-
-    # 需要去除光照的影响
-    dst = removelight(gray, block=32)
-    cv2.imwrite('Johns_Form_1.jpg', dst)
-
-    #dst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
-    #此处需要注意灰度图转彩色图的伪彩色技术，需要继续处理，否则出来的仍为灰度图，是一种彩色图的索引
-
-
-    # 下面进行图像增强操作
-    src1 = Image.open('Johns_Form_1.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
-    img = image_enhancement(src1)
-    cv2.imwrite('Johns_Form_2.jpg', img)
-
-
-
-
 
