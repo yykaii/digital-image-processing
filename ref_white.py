@@ -2,6 +2,8 @@
 import cv2
 import numpy as np
 import copy
+from PIL import Image
+from remove_light import image_enhancement
 
 isShowImage = True
 def showCV2Image(title, img):
@@ -48,6 +50,11 @@ if __name__ == '__main__':
     src1 = cv2.merge([b, g, r])
     if isShowImage:
         showCV2Image('src1', src1)
+    cv2.imwrite('johns_letter_white.jpg', src1)
+
+    src2 = Image.open('johns_letter_white.jpg')
+    contrast = image_enhancement(src2)
+
 
 
 
