@@ -2,7 +2,8 @@
 import cv2
 import numpy as np
 import math
-#去雾
+import copy
+#去雾化
 
 isShowImage = True
 
@@ -11,19 +12,31 @@ def showCV2Image(title, img):
     cv2.imshow(title, img)
     cv2.waitKey(0)
 
+def convertColor(img):
+    bgr = cv2.split(img)
+    bgr1 = copy.deepcopy(bgr)
+    rows = img.shape[0]
+    cols = img.shape[1]
+    for i in range(3):
+        for j in range(rows):
+            for x in range(cols):
+                bgr1[i][j][x] = 255 - bgr[i][j][x]
+    img1 = cv2.merge(bgr1)
+    return img1
+
 def stretchImage(data, s=0.005, bins = 2000): #线性拉伸，去掉最大最小0.5%的像素值，然后线性拉伸至[0,1]
     ht = np.histogram(data, bins)
     d = np.cumsum(ht[0])/float(data.size)
     lmin = 0
-    lmax=bins-1
-    while lmin<bins:
-        if d[lmin]>=s:
+    lmax = bins-1
+    while lmin < bins:
+        if d[lmin] >= s:
             break
-        lmin+=1
-    while lmax>=0:
-        if d[lmax]<=1-s:
+        lmin += 1
+    while lmax >= 0:
+        if d[lmax] <= 1-s:
             break
-        lmax-=1
+        lmax -= 1
     return np.clip((data-ht[1][lmin])/(ht[1][lmax]-ht[1][lmin]), 0,1)
 
 g_para = {}
@@ -69,13 +82,14 @@ def zmIceFast(I, ratio, radius): #单通道ACE快速增强实现
 def zmIceColor(I, ratio=4, radius=3): #rgb三通道分别增强，ratio是对比度增强因子，radius是卷积模板半径
     res = np.zeros(I.shape)
     for k in range(3):
-        res[:,:,k] = stretchImage(zmIceFast(I[:,:,k], ratio, radius))
+        res[:, :, k] = stretchImage(zmIceFast(I[:, :, k], ratio, radius))
     return res
 
 if __name__ == '__main__':
-    m = zmIceColor(cv2.imread('Johns_Form.jpg')/255.0)*255
+    src = cv2.imread('Johns_check.jpg')
+    m = zmIceColor(src/255.0)*255
     if isShowImage:
         showCV2Image('m', m)
-    cv2.imwrite('Johns_Form1.jpg', m)
+    cv2.imwrite('Johns_check1.jpg', m)
 
 
