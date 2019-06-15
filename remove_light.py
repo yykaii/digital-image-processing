@@ -46,14 +46,14 @@ def image_enhancement(img):
     brightness = 1.3
     gf_brightened = enh_bri.enhance(brightness)
     gf_brightened.show(title='gf_brightened')
-    gf_brightened.save('Johns_check_brightened1.jpg')
+    # gf_brightened.save('Johns_check_brightened1.jpg')
 
     #对比度增强
     enh_con = ImageEnhance.Contrast(gf_brightened)
     contrast = 1.3
     gf_contrast = enh_con.enhance(contrast)
     gf_contrast.show(title='gf_contrast')
-    gf_contrast.save('Johns_check_contrast.jpg')
+    # gf_contrast.save('Johns_check_contrast.jpg')
 
     # #锐化增强
     # enh_sha = ImageEnhance.Sharpness(gf_contrast)
@@ -67,7 +67,7 @@ def image_enhancement(img):
     color = 2
     gf_colored = enh_col.enhance(color)
     gf_colored.show(title='gf_colored')
-    gf_colored.save('Johns_DL_colored.jpg')
+    # gf_colored.save('Johns_DL_colored.jpg')
 
     return gf_contrast
 
