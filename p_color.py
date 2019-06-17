@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import cv2
 import math
-#偏色检测
+
 isShowImage = True
 
 def showCV2Image(title, img):
@@ -10,7 +10,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('Johns_Form.jpg')
+    src = cv2.imread('Johns_form_copy_s_p.jpg')
     lab = cv2.cvtColor(src, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(lab)
 
@@ -22,6 +22,8 @@ if __name__ == '__main__':
     rows, cols, _ = lab.shape
     da = a.sum()/(rows*cols)-128#归一化至[-128, 127]
     db = b.sum()/(rows*cols)-128
+    print('da', da)
+    print('db', db)#da>0偏红，否则偏绿；db>0偏黄，否则偏蓝
     hist_a = [0]*256
     hist_b = [0]*256
     for i in range(rows):
@@ -39,3 +41,27 @@ if __name__ == '__main__':
     m = math.sqrt(msqa*msqa + msqb*msqb)#色度中心距
     k = d/m#偏色因子,综合来说k<=1.5可认为整体图像偏色可能性不大
     print('k=%s'%k)
+
+    #矫正
+    if k >1.4:#判断是否存在偏色，是否需要矫正
+        # 根据a,b均值，判断到底是哪一种偏色
+        if abs(da) >abs(db):#偏红绿
+            #根据不同的偏色情况，分别采用线性拉伸策略，把a,b的均值等效移位到分布中心附近
+            da = da+128
+            for i in range(rows):
+                for j in range(cols):
+                    a[i][j] = da
+        else:#偏黄蓝
+            db = db+128
+            for i in range(rows):
+                for j in range(cols):
+                    b[i][j] = db
+    lab1 = cv2.merge([l, a, b])
+    src1 = cv2.cvtColor(lab1, cv2.COLOR_LAB2BGR)
+    if isShowImage:
+        showCV2Image('src1', src1)
+    cv2.imwrite('Johns_form_copy_s_pp.jpg', src1)
+
+
+
+

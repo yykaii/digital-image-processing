@@ -3,6 +3,9 @@ import cv2
 import numpy as np
 import math
 import copy
+from PIL import Image
+from remove_light import image_enhancement
+#偏色检测
 #去雾化
 
 isShowImage = True
@@ -37,7 +40,7 @@ def stretchImage(data, s=0.005, bins = 2000): #线性拉伸，去掉最大最小
         if d[lmax] <= 1-s:
             break
         lmax -= 1
-    return np.clip((data-ht[1][lmin])/(ht[1][lmax]-ht[1][lmin]), 0,1)
+    return np.clip((data-ht[1][lmin])/(ht[1][lmax]-ht[1][lmin]), 0, 1)
 
 g_para = {}
 def getPara(radius = 5): #根据半径计算权重参数矩阵
@@ -86,10 +89,12 @@ def zmIceColor(I, ratio=4, radius=3): #rgb三通道分别增强，ratio是对比
     return res
 
 if __name__ == '__main__':
-    src = cv2.imread('Johns_check.jpg')
+    src = cv2.imread('Johns_form_colorbalance2.jpg')
     m = zmIceColor(src/255.0)*255
-    if isShowImage:
-        showCV2Image('m', m)
-    cv2.imwrite('Johns_check1.jpg', m)
+    cv2.imwrite('Johns_form_colorbalance2_1.jpg', m)
+
+    src1 = Image.open('Johns_form_colorbalance2_1.jpg')
+    #p_contrast = image_enhancement(src1)
+
 
 

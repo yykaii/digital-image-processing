@@ -43,14 +43,14 @@ def removelight(img, block):
 def image_enhancement(img):
     # 亮度增强
     enh_bri = ImageEnhance.Brightness(img)
-    brightness = 1.3
+    brightness = 1
     gf_brightened = enh_bri.enhance(brightness)
     gf_brightened.show(title='gf_brightened')
     # gf_brightened.save('Johns_check_brightened1.jpg')
 
     #对比度增强
     enh_con = ImageEnhance.Contrast(gf_brightened)
-    contrast = 1.3
+    contrast = 1
     gf_contrast = enh_con.enhance(contrast)
     gf_contrast.show(title='gf_contrast')
     # gf_contrast.save('Johns_check_contrast.jpg')
