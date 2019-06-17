@@ -31,7 +31,7 @@ def image_enhancement(img):
     sharpness = 0.5
     gf_sharped = enh_sha.enhance(sharpness)
     gf_sharped.show(title='gf_sharped')
-    gf_sharped.save('Johns_form_copy_s_pp_cb_ie.jpg')
+    gf_sharped.save('p2_ie.jpg')
 
     #色度增强
     # enh_col = ImageEnhance.Color(gf_sharped)
@@ -45,7 +45,7 @@ def image_enhancement(img):
 if __name__ == '__main__':
 
     # 下面进行图像增强操作
-    src1 = Image.open('Johns_form_copy_s_pp_cb.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
+    src1 = Image.open('p2.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
     img = image_enhancement(src1)
     #cv2.imwrite('Johns_form_copy_s_p_cb_ie.jpg', img)
 
