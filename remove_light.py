@@ -43,30 +43,30 @@ def removelight(img, block):
 def image_enhancement(img):
     # 亮度增强
     enh_bri = ImageEnhance.Brightness(img)
-    brightness = 1
+    brightness = 1.5
     gf_brightened = enh_bri.enhance(brightness)
     gf_brightened.show(title='gf_brightened')
     # gf_brightened.save('Johns_check_brightened1.jpg')
 
     #对比度增强
     enh_con = ImageEnhance.Contrast(gf_brightened)
-    contrast = 1
+    contrast = 2
     gf_contrast = enh_con.enhance(contrast)
     gf_contrast.show(title='gf_contrast')
     # gf_contrast.save('Johns_check_contrast.jpg')
 
-    # #锐化增强
-    # enh_sha = ImageEnhance.Sharpness(gf_contrast)
-    # sharpness = 0.5
-    # gf_sharped = enh_sha.enhance(sharpness)
-    # gf_sharped.show(title='gf_sharped')
-    # # gf_sharped.save('gf_sharped.jpg')
+    #锐化增强
+    enh_sha = ImageEnhance.Sharpness(gf_contrast)
+    sharpness = 2
+    gf_sharped = enh_sha.enhance(sharpness)
+    gf_sharped.show(title='gf_sharped')
+    gf_sharped.save('chart_4.jpg')
     #
     #色度增强
-    enh_col = ImageEnhance.Color(gf_contrast)
-    color = 2
-    gf_colored = enh_col.enhance(color)
-    gf_colored.show(title='gf_colored')
+    # enh_col = ImageEnhance.Color(gf_contrast)
+    # color = 2
+    # gf_colored = enh_col.enhance(color)
+    # gf_colored.show(title='gf_colored')
     # gf_colored.save('Johns_DL_colored.jpg')
 
     return gf_contrast

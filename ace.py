@@ -89,12 +89,12 @@ def zmIceColor(I, ratio=4, radius=3): #rgb三通道分别增强，ratio是对比
     return res
 
 if __name__ == '__main__':
-    src = cv2.imread('Johns_form_colorbalance2.jpg')
+    src = cv2.imread('chart.jpg')
     m = zmIceColor(src/255.0)*255
-    cv2.imwrite('Johns_form_colorbalance2_1.jpg', m)
+    cv2.imwrite('chart_3.jpg', m)
 
-    src1 = Image.open('Johns_form_colorbalance2_1.jpg')
-    #p_contrast = image_enhancement(src1)
+    src1 = Image.open('chart_3.jpg')
+    p_contrast = image_enhancement(src1)
 
 
 
