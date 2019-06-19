@@ -13,7 +13,7 @@ def showCV2Image(title, img):
 
 if __name__ == '__main__':
     #原图
-    src = cv2.imread('chart_contrast.jpg')
+    src = cv2.imread('3.jpg')
     if isShowImage:
         showCV2Image('src', src)
     #灰度图
