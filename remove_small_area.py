@@ -13,7 +13,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('equ_colored.jpg')
+    src = cv2.imread('1.tif')
     if isShowImage:
         showCV2Image('src', src)
 
@@ -23,16 +23,16 @@ if __name__ == '__main__':
 
     #法2：腐蚀膨胀，去除小的连通域
     rows, cols = gray.shape
-    area = 40
+    area = 20
     for i in range(rows):
         for j in range(cols):
             if gray[i, j] < area:
-                gray[i, j] = 255
-            else:
                 gray[i, j] = 0
+            else:
+                gray[i, j] = 255
 
     kernel = np.ones((3, 3), np.uint8)
-    kernel[1] = 0
+    #kernel[1] = 0
     gray1 = cv2.erode(gray, kernel)
     gray1 = cv2.dilate(gray1, kernel)
     if isShowImage:
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     max_value = max(areas)
     print('max_value', max_value)
     image = morphology.remove_small_objects(labels, min_size=1, connectivity=1)#去除小的连通域
-    cv2.imwrite('remove_area.jpg', image)
+    # cv2.imwrite('remove_area.jpg', image)
 
 
     for i in range(rows):
@@ -68,7 +68,9 @@ if __name__ == '__main__':
     if isShowImage:
         showCV2Image('gray_', src)
 
-    cv2.imwrite('remove_small1.jpg', src)
+    #cv2.imwrite('remove_small1.jpg', src)
+
+
 
 
 
