@@ -1,43 +1,90 @@
-# -*- coding:utf-8 -*-
 import cv2
+import os
 import numpy as np
-import argparse
+from skimage import measure, color
+#Done
 
-#construct the argument parse and parse the arguments
-#从命令行中捕获所需的信息，即输入图像的路径
-ap = argparse.ArgumentParser()
-ap.add_argument('-i', '--image', required=True, help='path to input image file')
-args = vars(ap.parse_args())
+isShowImage = True
 
-#load image from disk
-image = cv2.imread(args['image'])
+def showCV2Image(title, img):
+    cv2.namedWindow(title, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # 调整窗口大小并保持比例
+    cv2.imshow(title, img)
+    cv2.waitKey(0)
 
-#把文本从图片中分离出来
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-gray = cv2.bitwise_not(gray)#确保字是白色，背景是黑色
+if __name__ == '__main__':
+        image = cv2.imread('APT001.tif')
+        #二值化
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        if isShowImage:
+            showCV2Image('gray', gray)
 
-thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+        binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 15, -3)
+        if isShowImage:
+            showCV2Image('binary', binary)
 
-#捕获所有像素点的角度（角度大于零的像素），然后找一个最大的旋转角度可以把所有的包含在其中
-coords = np.column_stack(np.where(thresh > 0))
-angle = cv2.minAreaRect(coords)[-1]#返回的角度在[-90，0）按顺时针计算
-if angle < -45:
-    angle = -(90+angle)
-else:
-    angle = -angle
+        binary1 = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 15, -3)
+        if isShowImage:
+            showCV2Image('binary1', binary1)
 
-#找到角度之后进行仿射变换矫正
-#rotate the image to deskew it
-(h, w) = image.shape[:2]
-center = (w//2, h//2)
-M = cv2.getRotationMatrix2D(center, angle, 1.0)
-rotated = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+        a = cv2.bitwise_xor(gray, binary1)
+        if isShowImage:
+            showCV2Image('a', a)
 
-cv2.putText(rotated, 'Angle:{:.2f} degrees'.format(angle), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+        a1 = cv2.bitwise_not(a)
+        if isShowImage:
+            showCV2Image('a1', a1)
 
-print('[INFO] angle:{:.3f}'.format(angle))
-cv2.imshow('input', image)
-cv2.waitKey(0)
-cv2.imshow('rotate', rotated)
-cv2.waitKey(0)
+        b = cv2.bitwise_xor(a, binary1)
+        if isShowImage:
+            showCV2Image('b', b)
 
+        rows, cols = binary.shape
+        scale = 20
+        #识别横线
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (cols//scale, 1))
+        eroded = cv2.erode(binary, kernel, iterations=1)
+        dilatedcol = cv2.dilate(eroded, kernel, iterations=1)
+        if isShowImage:
+            showCV2Image("Dilated Image", dilatedcol)
+
+        #识别竖线
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, rows//scale))
+        eroded = cv2.erode(binary, kernel, iterations=1)
+        dilatedrow = cv2.dilate(eroded, kernel, iterations=1)
+        if isShowImage:
+            showCV2Image("Dilated Image", dilatedrow)
+
+        #识别表格线
+        table = cv2.bitwise_or(dilatedcol, dilatedrow)
+        if isShowImage:
+            showCV2Image("table line", table)
+
+        #去掉表格线
+        no_tab_line = cv2.bitwise_xor(binary, table)
+        if isShowImage:
+            showCV2Image("no table line", no_tab_line)
+
+        #黑白反色
+        n_tab_line = cv2.bitwise_not(no_tab_line)
+        if isShowImage:
+            showCV2Image("n_table line", n_tab_line)
+
+        # contours = cv2.findContours(n_tab_line, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        # cnts = contours[0]
+        # print('cnts', np.array(cnts).shape )
+
+        # pts = np.zeros((rows, cols))
+        # for c in cnts:
+        #     cv2.drawContours(pts, [c], (255, 255, 255))
+
+        # if isShowImage:
+        #     showCV2Image('pts', pts)
+        # cv2.imwrite('APT004_1.jpg', n_tab_line)
+
+        c = cv2.subtract(a1, binary1)
+        if isShowImage:
+            showCV2Image('c', c)
+
+        d = cv2.subtract(n_tab_line, a1)
+        if isShowImage:
+            showCV2Image('d', d)
