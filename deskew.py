@@ -41,9 +41,7 @@ if __name__ == '__main__':
         cv2.floodFill(a, mask, (0, 0), 255)
         if isShowImage:
             showCV2Image('fill', a)
-        # new1 = cv2.bitwise_or(new, a)
-        # if isShowImage:
-        #     showCV2Image('new1', new1)
+
         scale = 20
         #识别横线
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (cols//scale, 1))
@@ -74,15 +72,5 @@ if __name__ == '__main__':
         if isShowImage:
             showCV2Image("n_table line", n_tab_line)
 
-        # contours = cv2.findContours(n_tab_line, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        # cnts = contours[0]
-        # print('cnts', np.array(cnts).shape )
-
-        # pts = np.zeros((rows, cols))
-        # for c in cnts:
-        #     cv2.drawContours(pts, [c], (255, 255, 255))
-
-        # if isShowImage:
-        #     showCV2Image('pts', pts)
         cv2.imwrite('a2.jpg', n_tab_line)#去线后的图
 
