@@ -1,7 +1,7 @@
 import cv2
 import os
 import numpy as np
-from skimage import measure, color
+from skimage import measure, color, morphology
 #Done
 
 isShowImage = True
@@ -12,7 +12,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-        image = cv2.imread('APT001.tif')
+        image = cv2.imread('10.jpg')
         #二值化
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         if isShowImage:
@@ -30,15 +30,20 @@ if __name__ == '__main__':
         if isShowImage:
             showCV2Image('a', a)
 
+        #a反色
         a1 = cv2.bitwise_not(a)
         if isShowImage:
             showCV2Image('a1', a1)
-
-        b = cv2.bitwise_xor(a, binary1)
-        if isShowImage:
-            showCV2Image('b', b)
+        cv2.imwrite('a1.jpg', a1)#需要反色的区域
 
         rows, cols = binary.shape
+        mask = np.zeros((rows+2, cols+2), np.uint8)
+        cv2.floodFill(a, mask, (0, 0), 255)
+        if isShowImage:
+            showCV2Image('fill', a)
+        # new1 = cv2.bitwise_or(new, a)
+        # if isShowImage:
+        #     showCV2Image('new1', new1)
         scale = 20
         #识别横线
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (cols//scale, 1))
@@ -79,12 +84,5 @@ if __name__ == '__main__':
 
         # if isShowImage:
         #     showCV2Image('pts', pts)
-        # cv2.imwrite('APT004_1.jpg', n_tab_line)
+        cv2.imwrite('a2.jpg', n_tab_line)#去线后的图
 
-        c = cv2.subtract(a1, binary1)
-        if isShowImage:
-            showCV2Image('c', c)
-
-        d = cv2.subtract(n_tab_line, a1)
-        if isShowImage:
-            showCV2Image('d', d)
