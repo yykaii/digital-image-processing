@@ -12,7 +12,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-        image = cv2.imread('10.jpg')
+        image = cv2.imread('8_1.jpg')
         #二值化
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         if isShowImage:
