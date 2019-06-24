@@ -12,17 +12,17 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-        image = cv2.imread('8_1.jpg')
+        image = cv2.imread('tab1.jpg')
         #二值化
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         if isShowImage:
             showCV2Image('gray', gray)
 
-        binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 15, -3)
+        binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 15, -10)
         if isShowImage:
             showCV2Image('binary', binary)
 
-        binary1 = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 15, -3)
+        binary1 = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 15, -10)
         if isShowImage:
             showCV2Image('binary1', binary1)
 
@@ -34,7 +34,7 @@ if __name__ == '__main__':
         a1 = cv2.bitwise_not(a)
         if isShowImage:
             showCV2Image('a1', a1)
-        cv2.imwrite('a1.jpg', a1)#需要反色的区域
+        cv2.imwrite('APT003_a1.jpg', a1)#需要反色的区域
 
         rows, cols = binary.shape
         mask = np.zeros((rows+2, cols+2), np.uint8)
@@ -72,5 +72,5 @@ if __name__ == '__main__':
         if isShowImage:
             showCV2Image("n_table line", n_tab_line)
 
-        cv2.imwrite('a2.jpg', n_tab_line)#去线后的图
+        cv2.imwrite('APT003_a2.jpg', n_tab_line)#去线后的图
 

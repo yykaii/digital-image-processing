@@ -9,11 +9,11 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('a1.jpg', cv2.IMREAD_GRAYSCALE)#直接返回一个灰度图
+    src = cv2.imread('APT003_a1.jpg', cv2.IMREAD_GRAYSCALE)#直接返回一个灰度图
     if isShowImage:
         showCV2Image('src', src)
 
-    src1 = cv2.imread('a2.jpg', cv2.IMREAD_GRAYSCALE)
+    src1 = cv2.imread('APT003_a2.jpg', cv2.IMREAD_GRAYSCALE)
     if isShowImage:
         showCV2Image('src1', src1)
 
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     if isShowImage:
         showCV2Image('f_out', final_out)
 
-    cv2.imwrite('final_out10.jpg', final_out)
+    cv2.imwrite('APT003_out.jpg', final_out)
 
     if isShowImage:
         showCV2Image('threshold', im_th)
