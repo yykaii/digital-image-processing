@@ -13,7 +13,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('APT003.tif')
+    src = cv2.imread('s.jpg')
 
     gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     rows, cols = binary.shape
 
     scale1 = 25
-    scale2 = 40
+    scale2 = 30
     scale3 = 45
 
     #第一次识别
