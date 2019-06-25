@@ -13,7 +13,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('1.tif')
+    src = cv2.imread('APT003_out.jpg')
     if isShowImage:
         showCV2Image('src', src)
 
@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     #法2：腐蚀膨胀，去除小的连通域
     rows, cols = gray.shape
-    area = 20
+    area = 50
     for i in range(rows):
         for j in range(cols):
             if gray[i, j] < area:

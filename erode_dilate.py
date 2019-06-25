@@ -20,7 +20,6 @@ if __name__ == '__main__':
     #灰度图
     gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 
-
     #二值化
     binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, -10)
     if isShowImage:

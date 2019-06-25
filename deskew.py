@@ -34,7 +34,7 @@ if __name__ == '__main__':
         a1 = cv2.bitwise_not(a)
         if isShowImage:
             showCV2Image('a1', a1)
-        cv2.imwrite('APT003_a1.jpg', a1)#需要反色的区域
+        cv2.imwrite('tab1_a1.jpg', a1)#需要反色的区域
 
         rows, cols = binary.shape
         mask = np.zeros((rows+2, cols+2), np.uint8)
@@ -72,5 +72,4 @@ if __name__ == '__main__':
         if isShowImage:
             showCV2Image("n_table line", n_tab_line)
 
-        cv2.imwrite('APT003_a2.jpg', n_tab_line)#去线后的图
-
+        cv2.imwrite('tab1_a2.jpg', n_tab_line)#去线后的图
