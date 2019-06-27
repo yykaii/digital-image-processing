@@ -14,7 +14,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-        image = cv2.imread('Johns_DL.jpg')
+        image = cv2.imread('c1.jpg')
         if isShowImage:
             showCV2Image('image', image)
 
@@ -42,5 +42,5 @@ if __name__ == '__main__':
         if isShowImage:
             showCV2Image('re', re)
 
-        cv2.imwrite('Johns_DL_bit.jpg', re)
+        cv2.imwrite('c1_bit.jpg', re)
 

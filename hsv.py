@@ -10,32 +10,29 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('Johns_Form_equ_hist.jpg')
-    hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
-    h, s, v = cv2.split(hsv)
+    src = cv2.imread('c14.jpg')
     if isShowImage:
-        showCV2Image('h', h)
-        showCV2Image('s', s)
-        showCV2Image('v', v)
+        showCV2Image('src', src)
 
-    lower_blue = np.array([78, 43, 46])
-    upper_blue = np.array([110, 255, 255])
+    gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 
-    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    median = cv2.medianBlur(gray, 3)
     if isShowImage:
-        showCV2Image('mask', mask)
+        showCV2Image('median', median)
 
-    res = cv2.bitwise_and(src, src, mask=mask)
-    if isShowImage:
-        showCV2Image('res', res)
+    # kernel = np.ones((3, 3), np.uint8)
+    #
+    # #先腐蚀，再膨胀
+    # dilation = cv2.dilate(gray, kernel)
+    # if isShowImage:
+    #     showCV2Image('dilation', dilation)
+    #
+    # eroded = cv2.erode(dilation, kernel)
+    # if isShowImage:
+    #     showCV2Image('eroded', eroded)
+    cv2.imwrite('c14_.jpg', median)
 
-    hun = cv2.bitwise_xor(res, src)
-    if isShowImage:
-        showCV2Image('hun', hun)
 
-    hun1 = cv2.bitwise_not(res, src)
-    if isShowImage:
-        showCV2Image('hun1', hun1)
 
 
 
