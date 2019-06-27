@@ -1,10 +1,5 @@
 import cv2
-import os
-from matplotlib import pyplot as plt
-from skimage import measure, color, morphology
-import numpy as np
-import math
-#Done
+#这个代码写的有问题，并不能是正规的bit平面分层操作
 
 isShowImage = True
 
