@@ -60,19 +60,19 @@ def image_enhancement(img):
     sharpness = 2
     gf_sharped = enh_sha.enhance(sharpness)
     gf_sharped.show(title='gf_sharped')
-    gf_sharped.save('chart_4.jpg')
-    #
-    #色度增强
-    # enh_col = ImageEnhance.Color(gf_contrast)
-    # color = 2
-    # gf_colored = enh_col.enhance(color)
-    # gf_colored.show(title='gf_colored')
-    # gf_colored.save('Johns_DL_colored.jpg')
+    # gf_sharped.save('chart_4.jpg')
+
+    # 色度增强
+    enh_col = ImageEnhance.Color(gf_sharped)
+    color = 2
+    gf_colored = enh_col.enhance(color)
+    gf_colored.show(title='gf_colored')
+    gf_colored.save('chart_4.jpg')
 
     return gf_contrast
 
 if __name__ == '__main__':
-    src = cv2.imread('Johns_Form.jpg')#原始图像
+    src = cv2.imread('c1.jpg')#原始图像
 
     # (b, g, r) = cv2.split(src)#分离通道
     # gf = cv2.merge([b, g, r])#通道合并
@@ -92,16 +92,16 @@ if __name__ == '__main__':
 
     # 需要去除光照的影响
     dst = removelight(gray, block=32)
-    cv2.imwrite('Johns_Form_1.jpg', dst)
+    cv2.imwrite('c1_rl.jpg', dst)
 
     #dst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
     #此处需要注意灰度图转彩色图的伪彩色技术，需要继续处理，否则出来的仍为灰度图，是一种彩色图的索引
 
 
     # 下面进行图像增强操作
-    src1 = Image.open('Johns_Form_1.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
+    src1 = Image.open('c1_rl.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
     img = image_enhancement(src1)
-    cv2.imwrite('Johns_Form_2.jpg', img)
+    # cv2.imwrite('c1_rl2.jpg', img)
 
 
 

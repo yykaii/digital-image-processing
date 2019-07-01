@@ -14,7 +14,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('chart.jpg')#原始图像
+    src = cv2.imread('c1_contrast.jpg')#原始图像
     bgr = cv2.split(src)#分离通道
 
     # bgr_equ_hist = []
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     bgr_adap_merge = cv2.merge(bgr_adap)
     if isShowImage:
         showCV2Image('bgr_adap_merge', bgr_adap_merge)
-    cv2.imwrite('chart_5.jpg', bgr_adap_merge)
+    cv2.imwrite('c1_contrast1.jpg', bgr_adap_merge)
 
     # gray = cv2.cvtColor(bgr_adap_merge, cv2.COLOR_BGR2GRAY)
     # if isShowImage:
@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     #存在小块的干扰噪声，需要进行滤波
 
-    src1 = Image.open('chart_5.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
+    src1 = Image.open('c1_contrast1.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
 
     # 亮度增强
     enh_bri = ImageEnhance.Brightness(src1)
@@ -78,4 +78,4 @@ if __name__ == '__main__':
     color = 1
     gf_colored = enh_col.enhance(color)
     gf_colored.show(title='gf_colored')
-    gf_colored.save('chart_6.jpg')
+    gf_colored.save('c1_color2.jpg')

@@ -17,35 +17,35 @@ def image_enhancement(img):
     brightness = 1.5
     gf_brightened = enh_bri.enhance(brightness)
     gf_brightened.show(title='gf_brightened')
-    # gf_brightened.save('Johns_check_brightened1.jpg')
+    gf_brightened.save('c1_brightened.jpg')
 
     #对比度增强
     enh_con = ImageEnhance.Contrast(gf_brightened)
-    contrast = 1.5
+    contrast = 2.5
     gf_contrast = enh_con.enhance(contrast)
     gf_contrast.show(title='gf_contrast')
-    # gf_contrast.save('Johns_check_contrast.jpg')
+    gf_contrast.save('c1_contrast.jpg')
 
     #锐化增强
     enh_sha = ImageEnhance.Sharpness(gf_contrast)
-    sharpness = 0.5
+    sharpness = 1.5
     gf_sharped = enh_sha.enhance(sharpness)
     gf_sharped.show(title='gf_sharped')
-    gf_sharped.save('p2_ie.jpg')
+    gf_sharped.save('c1_sharp.jpg')
 
     #色度增强
-    # enh_col = ImageEnhance.Color(gf_sharped)
-    # color = 2
-    # gf_colored = enh_col.enhance(color)
-    # gf_colored.show(title='gf_colored')
-    # gf_colored.save('Johns_DL_colored.jpg')
+    enh_col = ImageEnhance.Color(gf_sharped)
+    color = 2
+    gf_colored = enh_col.enhance(color)
+    gf_colored.show(title='gf_colored')
+    gf_colored.save('c1_colored.jpg')
 
     return gf_contrast
 
 if __name__ == '__main__':
 
     # 下面进行图像增强操作
-    src1 = Image.open('p2.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
+    src1 = Image.open('c1.jpg')  # imread的图像为数组，image其自带的open方法无法处理，mode不对应，open返回一个pil对象
     img = image_enhancement(src1)
     #cv2.imwrite('Johns_form_copy_s_p_cb_ie.jpg', img)
 

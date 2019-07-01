@@ -12,7 +12,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('chart.jpg')
+    src = cv2.imread('c1.jpg')
     if isShowImage:
         showCV2Image('src', src)
 
@@ -60,8 +60,8 @@ if __name__ == '__main__':
     if isShowImage:
         showCV2Image('img', img)
 
-    cv2.imwrite('chart_1.jpg', img)
-    src1 = Image.open('chart_1.jpg')
+    cv2.imwrite('c1_cb.jpg', img)
+    src1 = Image.open('c1_cb.jpg')
     enh = image_enhancement(src1)
 
 
