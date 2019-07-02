@@ -58,14 +58,3 @@ if __name__ == '__main__':
 
         cv2.imwrite('chart_4_bit.jpg', reconstruct)
 
-
-
-        # re = bits[0]
-        # for s in range(1, 4):
-        #     re = cv2.add(bits[s], re)
-        #
-        # if isShowImage:
-        #     showCV2Image('re', re)
-
-        # cv2.imwrite('chart_4_bit.jpg', re)
-
