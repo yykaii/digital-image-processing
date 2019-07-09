@@ -16,8 +16,8 @@ def brightness(img):
     enh_bri = ImageEnhance.Brightness(img)
     brightness = 1.5
     gf_brightened = enh_bri.enhance(brightness)
-    gf_brightened.show(title='gf_brightened')
-    gf_brightened.save('c1_brightened.jpg')
+    # gf_brightened.show(title='gf_brightened')
+    # gf_brightened.save('c1_brightened.jpg')
     return gf_brightened
 
 #对比度增强
@@ -25,8 +25,8 @@ def contrast(img):
     enh_con = ImageEnhance.Contrast(img)
     contrast = 2.5
     gf_contrast = enh_con.enhance(contrast)
-    gf_contrast.show(title='gf_contrast')
-    gf_contrast.save('c1_contrast.jpg')
+    # gf_contrast.show(title='gf_contrast')
+    # gf_contrast.save('c1_contrast.jpg')
     return gf_contrast
 
 #锐化增强
@@ -34,8 +34,8 @@ def sharpness(img):
     enh_sha = ImageEnhance.Sharpness(img)
     sharpness = 1.5
     gf_sharped = enh_sha.enhance(sharpness)
-    gf_sharped.show(title='gf_sharped')
-    gf_sharped.save('c1_sharp.jpg')
+    # gf_sharped.show(title='gf_sharped')
+    # gf_sharped.save('c1_sharp.jpg')
     return gf_sharped
 
 #色度增强
@@ -43,8 +43,8 @@ def color(img):
     enh_col = ImageEnhance.Color(img)
     color = 2
     gf_colored = enh_col.enhance(color)
-    gf_colored.show(title='gf_colored')
-    gf_colored.save('c1_colored.jpg')
+    # gf_colored.show(title='gf_colored')
+    # gf_colored.save('c1_colored.jpg')
     return gf_colored
 
 if __name__ == '__main__':
