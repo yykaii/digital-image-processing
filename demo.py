@@ -138,7 +138,7 @@ def color():
 root = tk.Tk()
 root.title("Image Enhancement Demo")
 
-width = 1000
+width = 1200
 height = 800
 
 screenwidth = root.winfo_screenwidth()
@@ -151,78 +151,95 @@ image_area = tk.Frame(width=900, height=700, padx=10, pady=10)
 image_area.grid(row=0)
 
 label1 = tk.Label(image_area)
-label1.grid(row=0, column=0, rowspan=10)
+label1.grid(row=0, column=0)
 button1 = tk.Button(root, text="Choose Picture", command=choose_pic)
-button1.grid(row=0, column=2)
+#button1.grid(row=0, column=2)
+button1.place(x=1000, y=20)
 
 label2 = tk.Label(image_area)
-label2.grid(row=0, column=1, rowspan=10)
+label2.grid(row=0, column=1)
 button2 = tk.Button(root, text="gray value", command=gray_value)
-button2.grid(row=1, column=2)
+# button2.grid(row=1, column=2)
+button2.place(x=1000, y=50)
 
 label3 = tk.Label(image_area)
-label3.grid(row=0, column=1, rowspan=10)
+label3.grid(row=0, column=1)
 button3 = tk.Button(root, text="gamma correction", command=gamma_correction)
-button3.grid(row=2, column=2)
+# button3.grid(row=2, column=2)
+button3.place(x=1000, y=80)
 
 label4 = tk.Label(image_area)
 label4.grid(row=0, column=1, rowspan=10)
 button4 = tk.Button(root, text="bgr adaptive hist", command=bgr_adap)
-button4.grid(row=3, column=2)
+# button4.grid(row=3, column=2)
+button4.place(x=1000, y=110)
 
 label5 = tk.Label(image_area)
 label5.grid(row=0, column=1, rowspan=10)
 button5 = tk.Button(root, text="remove light", command=remove_light)
-button5.grid(row=4, column=2)
+# button5.grid(row=4, column=2)
+button5.place(x=1000, y=140)
 
 label6 = tk.Label(image_area)
 label6.grid(row=0, column=1, rowspan=10)
 button6 = tk.Button(root, text="color balance", command=color_balance)
-button6.grid(row=5, column=2)
+# button6.grid(row=5, column=2)
+button6.place(x=1000, y=170)
+
 
 label7 = tk.Label(image_area)
 label7.grid(row=0, column=1, rowspan=10)
 button7 = tk.Button(root, text="p color correction", command=p_color_correction)
-button7.grid(row=6, column=2)
+# button7.grid(row=6, column=2)
+button7.place(x=1000, y=200)
 
 label8 = tk.Label(image_area)
 label8.grid(row=0, column=1, rowspan=10)
 button8 = tk.Button(root, text="bit layer split", command=bit_layer_split)
-button8.grid(row=7, column=2)
+# button8.grid(row=7, column=2)
+button8.place(x=1000, y=230)
 
 label9 = tk.Label(image_area)
 label9.grid(row=0, column=1, rowspan=10)
 button9 = tk.Button(root, text="hole filling", command=hole_filling)
-button9.grid(row=8, column=2)
+# button9.grid(row=8, column=2)
+button9.place(x=1000, y=260)
 
 label10 = tk.Label(image_area)
 label10.grid(row=0, column=1, rowspan=10)
 button10 = tk.Button(root, text="remove lines", command=remove_lines)
-button10.grid(row=9, column=2)
+# button10.grid(row=9, column=2)
+button10.place(x=1000, y=290)
 
 label11 = tk.Label(image_area)
 label11.grid(row=0, column=1, rowspan=10)
 button11 = tk.Button(root, text="median blur", command=median_blur)
-button11.grid(row=10, column=2)
+# button11.grid(row=10, column=2)
+button11.place(x=1000, y=320)
+
 
 label12 = tk.Label(image_area)
 label12.grid(row=0, column=1, rowspan=10)
 button12 = tk.Button(root, text="brightness", command=brightness)
-button12.grid(row=11, column=2)
+# button12.grid(row=11, column=2)
+button12.place(x=1000, y=350)
 
 label13 = tk.Label(image_area)
 label13.grid(row=0, column=1, rowspan=10)
 button13 = tk.Button(root, text="contrast", command=contrast)
-button13.grid(row=12, column=2)
+# button13.grid(row=12, column=2)
+button13.place(x=1000, y=380)
 
 label14 = tk.Label(image_area)
 label14.grid(row=0, column=1, rowspan=10)
 button14 = tk.Button(root, text="sharpness", command=sharpness)
-button14.grid(row=13, column=2)
+# button14.grid(row=13, column=2)
+button14.place(x=1000, y=410)
 
 label15 = tk.Label(image_area)
 label15.grid(row=0, column=1, rowspan=10)
 button15 = tk.Button(root, text="color", command=color)
-button15.grid(row=14, column=2)
+# button15.grid(row=14, column=2)
+button15.place(x=1000, y=440)
 
 root.mainloop()
