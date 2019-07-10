@@ -5,6 +5,14 @@ import numpy as np
 import copy
 import math
 
+isShowImage = True
+
+def showCV2Image(title, img):
+    cv2.namedWindow(title, cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)#调整窗口大小并保持比例
+    cv2.imshow(title, img)
+    cv2.waitKey(0)
+
+
 #二值化
 def binary(gray):
     binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, -10)
@@ -32,7 +40,8 @@ def medianblur(bins):
     medianblur1 = cv2.bitwise_not(medianblur)
     # if isShowImage:
     #     showCV2Image('median1', medianblur1)
-    cv2.imwrite('3_median.jpg', medianblur1)
+    # cv2.imwrite('3_median.jpg', medianblur1)
+    return medianblur1
 
 # 填洞，先膨胀再腐蚀，闭运算，输入为二值图像
 #先找连通域，去除小的点，然后再做膨胀腐蚀
