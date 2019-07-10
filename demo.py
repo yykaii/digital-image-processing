@@ -196,7 +196,7 @@ def wrap_perspective():
 root = tk.Tk()
 root.title("Image Enhancement Demo")
 
-width = 1400
+width = 1500
 height = 800
 
 screenwidth = root.winfo_screenwidth()
@@ -220,54 +220,66 @@ enhanced_canvas.create_rectangle(5, 5, 600, 700)
 enhanced_canvas.place(x=605, y=50)
 
 button1 = tk.Button(root, text="Choose Picture", command=choose_pic)
-button1.place(x=1250, y=50)
+button1.place(x=1275, y=50)
+
+label1 = tk.Label(root, text='Gray scale：', font=("Arial", 12))
+label1.place(x=1230, y=90)
 
 button2 = tk.Button(root, text="gray value", command=gray_value)
-button2.place(x=1250, y=80)
+button2.place(x=1275, y=110)
 
 button16 = tk.Button(root, text="adaptive binary", command=binary_value)
-button16.place(x=1250, y=110)
+button16.place(x=1275, y=140)
+
+label2 = tk.Label(root, text='Color balance and correction：', font=("Arial", 12))
+label2.place(x=1230, y=180)
 
 button3 = tk.Button(root, text="gamma correction", command=gamma_correction)
-button3.place(x=1250, y=140)
+button3.place(x=1275, y=200)
 
 button4 = tk.Button(root, text="bgr adaptive hist", command=bgr_adap)
-button4.place(x=1250, y=170)
-
-button5 = tk.Button(root, text="remove light", command=remove_light)
-button5.place(x=1250, y=200)
+button4.place(x=1275, y=230)
 
 button6 = tk.Button(root, text="color balance", command=color_balance)
-button6.place(x=1250, y=230)
+button6.place(x=1275, y=260)
 
 button7 = tk.Button(root, text="p color correction", command=p_color_correction)
-button7.place(x=1250, y=260)
+button7.place(x=1275, y=290)
+
+button5 = tk.Button(root, text="remove light", command=remove_light)
+button5.place(x=1275, y=320)
+
+label3 = tk.Label(root, text='Blur and augmentation：', font=("Arial", 12))
+label3.place(x=1230, y=360)
 
 button8 = tk.Button(root, text="bit layer split", command=bit_layer_split)
-button8.place(x=1250, y=290)
+button8.place(x=1275, y=380)
 
 button9 = tk.Button(root, text="hole filling", command=hole_filling)
-button9.place(x=1250, y=320)
+button9.place(x=1275, y=410)
 
 button10 = tk.Button(root, text="remove lines", command=remove_lines)
-button10.place(x=1250, y=350)
+button10.place(x=1275, y=440)
 
 button11 = tk.Button(root, text="median blur", command=median_blur)
-button11.place(x=1250, y=380)
+button11.place(x=1275, y=470)
 
 button16 = tk.Button(root, text="wrap perspective", command=wrap_perspective)
-button16.place(x=1250, y=410)
+button16.place(x=1275, y=500)
+
+label4 = tk.Label(root, text='Enhancement：', font=("Arial", 12))
+label4.place(x=1230, y=540)
 
 button12 = tk.Button(root, text="brightness", command=brightness)
-button12.place(x=1250, y=440)
+button12.place(x=1275, y=560)
 
 button13 = tk.Button(root, text="contrast", command=contrast)
-button13.place(x=1250, y=470)
+button13.place(x=1275, y=590)
 
 button14 = tk.Button(root, text="sharpness", command=sharpness)
-button14.place(x=1250, y=500)
+button14.place(x=1275, y=620)
 
 button15 = tk.Button(root, text="color", command=color)
-button15.place(x=1250, y=530)
+button15.place(x=1275, y=650)
 
 root.mainloop()
