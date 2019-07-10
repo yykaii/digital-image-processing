@@ -22,6 +22,7 @@ def choose_pic():
 
     global path_
     path_=path+'_resize.jpg'
+    img_ = img_.convert('RGB')
     img_.save(path_)
     global src
     src = cv2.imread(path_)
@@ -181,6 +182,17 @@ def binary_value():
     img_choose15 = ImageTk.PhotoImage(img_)
     enhanced_canvas.create_image(x_start, y_start, anchor='nw', image=img_choose15)
 
+def wrap_perspective():
+    src1 = cv2.imread(path)
+    wrap = morph_module.wrap_perspective(src1)
+    path16 = path+'_wrap.jpg'
+    cv2.imwrite(path16, wrap)
+    img_ = Image.open(path16)
+    global img_choose16
+    img_choose16 = ImageTk.PhotoImage(img_)
+    enhanced_canvas.create_image(x_start, y_start, anchor='nw', image=img_choose16)
+
+
 root = tk.Tk()
 root.title("Image Enhancement Demo")
 
@@ -243,18 +255,19 @@ button10.place(x=1250, y=350)
 button11 = tk.Button(root, text="median blur", command=median_blur)
 button11.place(x=1250, y=380)
 
+button16 = tk.Button(root, text="wrap perspective", command=wrap_perspective)
+button16.place(x=1250, y=410)
+
 button12 = tk.Button(root, text="brightness", command=brightness)
-button12.place(x=1250, y=410)
+button12.place(x=1250, y=440)
 
 button13 = tk.Button(root, text="contrast", command=contrast)
-button13.place(x=1250, y=440)
+button13.place(x=1250, y=470)
 
 button14 = tk.Button(root, text="sharpness", command=sharpness)
-button14.place(x=1250, y=470)
+button14.place(x=1250, y=500)
 
 button15 = tk.Button(root, text="color", command=color)
-button15.place(x=1250, y=500)
-
-
+button15.place(x=1250, y=530)
 
 root.mainloop()
