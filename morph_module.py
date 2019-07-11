@@ -13,10 +13,23 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 
-#二值化
+#自适应二值化
 def binary(gray):
     binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, -10)
+    binary = cv2.bitwise_not(binary)
     return binary
+
+#固定阈值二值化
+def fixed_threshold(gray):
+    ret, binary1 = cv2.threshold(~gray, 127, 255, cv2.THRESH_BINARY)
+    binary1 = cv2.bitwise_not(binary1)
+    return binary1
+
+#ostu二值化
+def ostu(gray):
+    ret, binary2 = cv2.threshold(~gray, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    binary2 = cv2.bitwise_not(binary2)
+    return binary2
 
 #开操作，先腐蚀小的噪点，再膨胀，输入为二值图像
 def open(bins):
@@ -29,8 +42,8 @@ def open(bins):
 #中值滤波，去椒盐噪声，输入为二值图像
 def medianblur(bins):
     medianblur = cv2.medianBlur(bins, 3)
-    medianblur1 = cv2.bitwise_not(medianblur)
-    return medianblur1
+    # medianblur1 = cv2.bitwise_not(medianblur)
+    return medianblur
 
 # 填洞，先膨胀再腐蚀，闭运算，输入为二值图像
 #先找连通域，去除小的点，然后再做膨胀腐蚀

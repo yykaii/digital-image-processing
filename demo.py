@@ -34,7 +34,6 @@ def choose_pic():
     original_canvas.create_image(x_start, y_start, anchor='nw', image=img_choose)
 
 def gray_value():
-
     # global gray
     gray = function_modules.gray(src)
     path1 = path+'_gray.jpg'
@@ -175,12 +174,32 @@ def color():
 def binary_value():
     gray = function_modules.gray(src)
     bins = morph_module.binary(gray)
-    path15 = path + '_binary.jpg'
+    path15 = path + '_adaptive_threshold.jpg'
     cv2.imwrite(path15, bins)
     img_ = Image.open(path15)
     global img_choose15
     img_choose15 = ImageTk.PhotoImage(img_)
     enhanced_canvas.create_image(x_start, y_start, anchor='nw', image=img_choose15)
+
+def fixed_threshold():
+    gray = function_modules.gray(src)
+    bins = morph_module.fixed_threshold(gray)
+    path17 = path + '_fixed_threshold.jpg'
+    cv2.imwrite(path17, bins)
+    img_ = Image.open(path17)
+    global img_choose17
+    img_choose17 = ImageTk.PhotoImage(img_)
+    enhanced_canvas.create_image(x_start, y_start, anchor='nw', image=img_choose17)
+
+def ostu():
+    gray = function_modules.gray(src)
+    bins = morph_module.ostu(gray)
+    path18 = path + '_ostu.jpg'
+    cv2.imwrite(path18, bins)
+    img_ = Image.open(path18)
+    global img_choose18
+    img_choose18 = ImageTk.PhotoImage(img_)
+    enhanced_canvas.create_image(x_start, y_start, anchor='nw', image=img_choose18)
 
 def wrap_perspective():
     src1 = cv2.imread(path)
@@ -228,58 +247,67 @@ label1.place(x=1230, y=90)
 button2 = tk.Button(root, text="gray value", command=gray_value)
 button2.place(x=1275, y=110)
 
-button16 = tk.Button(root, text="adaptive binary", command=binary_value)
-button16.place(x=1275, y=140)
+label5 = tk.Label(root, text='Binary to black/white：', font=("Arial", 12))
+label5.place(x=1230, y=140)
+
+button17 = tk.Button(root, text="fixed threshold", command=fixed_threshold)
+button17.place(x=1275, y=170)
+
+button16 = tk.Button(root, text="adaptive threshold", command=binary_value)
+button16.place(x=1275, y=200)
+
+button18 = tk.Button(root, text="OSTU", command=ostu)
+button18.place(x=1275, y=230)
 
 label2 = tk.Label(root, text='Color balance and correction：', font=("Arial", 12))
-label2.place(x=1230, y=180)
+label2.place(x=1230, y=260)
 
 button3 = tk.Button(root, text="gamma correction", command=gamma_correction)
-button3.place(x=1275, y=200)
+button3.place(x=1275, y=280)
 
 button4 = tk.Button(root, text="bgr adaptive hist", command=bgr_adap)
-button4.place(x=1275, y=230)
+button4.place(x=1275, y=320)
 
 button6 = tk.Button(root, text="color balance", command=color_balance)
-button6.place(x=1275, y=260)
+button6.place(x=1275, y=350)
 
 button7 = tk.Button(root, text="p color correction", command=p_color_correction)
-button7.place(x=1275, y=290)
+button7.place(x=1275, y=380)
 
 button5 = tk.Button(root, text="remove light", command=remove_light)
-button5.place(x=1275, y=320)
+button5.place(x=1275, y=410)
 
 label3 = tk.Label(root, text='Blur and augmentation：', font=("Arial", 12))
-label3.place(x=1230, y=360)
+label3.place(x=1230, y=440)
 
 button8 = tk.Button(root, text="bit layer split", command=bit_layer_split)
-button8.place(x=1275, y=380)
+button8.place(x=1275, y=460)
 
 button9 = tk.Button(root, text="hole filling", command=hole_filling)
-button9.place(x=1275, y=410)
+button9.place(x=1275, y=490)
 
 button10 = tk.Button(root, text="remove lines", command=remove_lines)
-button10.place(x=1275, y=440)
+button10.place(x=1275, y=520)
 
 button11 = tk.Button(root, text="median blur", command=median_blur)
-button11.place(x=1275, y=470)
+button11.place(x=1275, y=550)
 
 button16 = tk.Button(root, text="wrap perspective", command=wrap_perspective)
-button16.place(x=1275, y=500)
+button16.place(x=1275, y=580)
 
 label4 = tk.Label(root, text='Enhancement：', font=("Arial", 12))
-label4.place(x=1230, y=540)
+label4.place(x=1230, y=610)
 
 button12 = tk.Button(root, text="brightness", command=brightness)
-button12.place(x=1275, y=560)
+button12.place(x=1275, y=630)
 
 button13 = tk.Button(root, text="contrast", command=contrast)
-button13.place(x=1275, y=590)
+button13.place(x=1275, y=660)
 
 button14 = tk.Button(root, text="sharpness", command=sharpness)
-button14.place(x=1275, y=620)
+button14.place(x=1275, y=690)
 
 button15 = tk.Button(root, text="color", command=color)
-button15.place(x=1275, y=650)
+button15.place(x=1275, y=720)
 
 root.mainloop()
