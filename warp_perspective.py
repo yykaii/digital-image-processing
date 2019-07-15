@@ -10,7 +10,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('alex_check.jpg')
+    src = cv2.imread('111.jpg')
     if isShowImage:
         showCV2Image('src', src)
 
