@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pylab as plt
 import time
-#注意，此处只适于大于45的旋转
+#注意，此处只适于[45, 90]的旋转
 
 img=cv2.imread('Alex_dl_r.jpg')
 # img=img[14:-15,13:-14]
