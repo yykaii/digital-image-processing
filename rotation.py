@@ -32,11 +32,13 @@ if __name__ == '__main__':
     rows1, cols1 = img_ex.shape[:2]
     center = (int(cols1/2), int(rows1/2))#寻找质心，即旋转中心
 
-    rotate = cv2.getRotationMatrix2D(center, 45, 1)#旋转转换矩阵，第三个参数是缩放系数，1表示保持原图大小
+    rotate = cv2.getRotationMatrix2D(center, 30, 1)#旋转转换矩阵，第三个参数是缩放系数，1表示保持原图大小
     img_ex_rotate = cv2.warpAffine(img_ex, rotate, (cols1, rows1))
 
     if isShowImage:
         showCV2Image('img_rotate', img_ex_rotate)
+
+    cv2.imwrite('Alex_dl_r.jpg', img_ex_rotate)
 
 
 
