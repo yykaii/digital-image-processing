@@ -14,9 +14,10 @@ def showCV2Image(title, img):
 
 if __name__ == '__main__':
 
-   img = cv2.imread('Alex_dl_r.jpg')
+   img = cv2.imread('r0.jpg')
    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-   ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+   # ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+   binary = cv2.adaptiveThreshold(~gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, -10)
    if showCV2Image:
        showCV2Image('bin', binary)
 
@@ -42,7 +43,8 @@ if __name__ == '__main__':
    if width < height:  #计算角度，为后续做准备
      angle = angle - 90
    print(angle)
-
+   # if angle < 0:
+   #     angle += 90.0
 # if  angle < -45:
 #     angle += 90.0
 #        #保证旋转为水平
@@ -61,9 +63,20 @@ if __name__ == '__main__':
    M = cv2.getPerspectiveTransform(src_pts, dst_pts)
    warped = cv2.warpPerspective(img, M, (width, height))
 
+   rows1, cols1 = img.shape[:2]
+
+   # angle = 0-angle
+   # print('rangle', angle)
+
+   rotate = cv2.getRotationMatrix2D((int(cols1/2), int(rows1/2)), angle, 1)  # 旋转转换矩阵，第三个参数是缩放系数，1表示保持原图大小
+   img_ex_rotate = cv2.warpAffine(img, rotate, (rows1, cols1))
+   if isShowImage:
+       showCV2Image('img_ex', img_ex_rotate)
+
+
    if angle <=  -90:  #对-90度以上图片的竖直结果转正
        warped = cv2.transpose(warped)
        warped = cv2.flip(warped, 0)  # 逆时针转90度，如果想顺时针，则0改为1
     # warped=warped.transpose
-   if isShowImage:
-       showCV2Image('wr1', warped)
+   # if isShowImage:
+   #     showCV2Image('wr1', warped)

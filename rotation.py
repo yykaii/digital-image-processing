@@ -11,7 +11,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('Alex_dl.jpg')
+    src = cv2.imread('r0.jpg')
     if isShowImage:
         showCV2Image('src', src)
 
@@ -25,20 +25,20 @@ if __name__ == '__main__':
     #以对角线的长度，为原图加边框，防止旋转后图片不能完整展示
     dia_length = int(math.sqrt(rows*rows+cols*cols))
 
-    img_ex = cv2.copyMakeBorder(src, dia_length-rows, dia_length-rows, dia_length-cols, dia_length-cols, cv2.BORDER_CONSTANT, value=(0, 0, 0))
+    img_ex = cv2.copyMakeBorder(src, int((dia_length-rows)), int((dia_length-rows)), int((dia_length-cols)), int((dia_length-cols)), cv2.BORDER_CONSTANT, value=(255, 255, 255))
     if isShowImage:
         showCV2Image('img_ex', img_ex) #加了边框的图
 
     rows1, cols1 = img_ex.shape[:2]
     center = (int(cols1/2), int(rows1/2))#寻找质心，即旋转中心
 
-    rotate = cv2.getRotationMatrix2D(center, -89, 1)#旋转转换矩阵，第三个参数是缩放系数，1表示保持原图大小
+    rotate = cv2.getRotationMatrix2D(center, -45, 1)#旋转转换矩阵，第三个参数是缩放系数，1表示保持原图大小
     img_ex_rotate = cv2.warpAffine(img_ex, rotate, (cols1, rows1))
 
     if isShowImage:
         showCV2Image('img_rotate', img_ex_rotate)
 
-    cv2.imwrite('Alex_dl_r.jpg', img_ex_rotate)
+    cv2.imwrite('r0_r.jpg', img_ex_rotate)
 
 
 
