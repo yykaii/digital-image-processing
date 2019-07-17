@@ -29,13 +29,15 @@ gray = cv2.bitwise_not(gray)
 rows, cols = gray.shape
 dia_length = int(math.sqrt(rows*rows+cols*cols))
 img_ex = cv2.copyMakeBorder(image, int((dia_length-rows)), int((dia_length-rows)), int((dia_length-cols)), int((dia_length-cols)), cv2.BORDER_CONSTANT, value=(255, 255, 255))
+
 cv2.imwrite('r0_1.jpg', img_ex)
 if isShowImage:
+
     showCV2Image('img_ex', img_ex) #加了边框的图
 rows1, cols1 = img_ex.shape[:2]
 center = (int(cols1/2), int(rows1/2))
 
-img = Image.open('r0_1.jpg')
+# img = Image.open('r0_1.jpg')
 
 # threshold the image, setting all foreground pixels to 255 and all background pixels to 0
 thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
@@ -50,16 +52,23 @@ width = int(rect[1][0])
 height = int(rect[1][1])
 
 if width < height:
+    img3 = cv2.rotate(img_ex, -90)
+    # if isShowImage:
+    #     showCV2Image('img3', img3)
 
-    img = img.rotate(-90)
-    img.show()
+    # img = img.rotate(-90)
+    # img.show()
 
 x1 = int(cols1/2)-int(cols/2)
 y1 = int(rows1/2)-int(rows/2)
 x2 = int(cols1/2)+int(cols/2)
 y2 = int(rows1/2)+int(rows/2)
-img.crop((y1, x1), (y2, x2))
-img.save('r0_90.jpg')
+# img1 = img.crop((y1, x1, y2, x2))
+# img1.save('r0_90.jpg')
+
+img2 = cv2.rectangle(img3, (x1, y1), (x2, y2), (0, 255, 0), 1)
+if isShowImage:
+    showCV2Image('img2', img2)
 
 
 # the `cv2.minAreaRect` function returns values in the range [-90, 0); as the rectangle rotates clockwise the

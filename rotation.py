@@ -11,7 +11,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    src = cv2.imread('r0.jpg')
+    src = cv2.imread('APT005_1.jpg')
     if isShowImage:
         showCV2Image('src', src)
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     #以对角线的长度，为原图加边框，防止旋转后图片不能完整展示
     dia_length = int(math.sqrt(rows*rows+cols*cols))
 
-    img_ex = cv2.copyMakeBorder(src, int((dia_length-rows)), int((dia_length-rows)), int((dia_length-cols)), int((dia_length-cols)), cv2.BORDER_CONSTANT, value=(255, 255, 255))
+    img_ex = cv2.copyMakeBorder(src, int((dia_length-cols)/2), int((dia_length-cols)/2), int((dia_length-rows)/2), int((dia_length-rows)/2), cv2.BORDER_CONSTANT, value=(255, 255, 255))
     if isShowImage:
         showCV2Image('img_ex', img_ex) #加了边框的图
 
