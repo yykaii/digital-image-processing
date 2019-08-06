@@ -12,7 +12,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    image = cv2.imread('1_.png')
+    image = cv2.imread('z14_-90.png')
     if isShowImage:
         showCV2Image('input', image)
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     #先做膨胀，然后找横线，若为90度，则横线在上部，若为-90度，则横线在下部
     rows, cols = binary.shape
-    scale = 5
+    scale = 8
     # 识别横线
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (cols // scale, 1))
     eroded = cv2.erode(dilation, kernel, iterations=1)
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         for j in range(cols):
             if dilatedcol[i][j] == 255:
                 # print('j', j)
-                if i <= (1/3*rows):#说明在上半部，为90度
+                if i < (1/3*rows):#说明在上半部，为90度
                     ang = 90
                 elif i >= (2/3*rows):#说明在下半部，为-90度
                     ang = -90
@@ -83,9 +83,9 @@ if __name__ == '__main__':
     angle = average_angles/np.pi*180#检测出的最终角度
     print('angle', angle)
 
-    if abs(angle-90) <= 1:
+    if abs(angle-90) <= 10:
         final_angle = 0
-    elif angle <= 1:
+    elif angle <= 10:
         final_angle = ang
     print('final angle', final_angle)
 

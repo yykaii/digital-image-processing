@@ -12,7 +12,7 @@ def showCV2Image(title, img):
     cv2.waitKey(0)
 
 if __name__ == '__main__':
-    image = cv2.imread('c2_.png')
+    image = cv2.imread('rotation_test/s3.png')
     if isShowImage:
         showCV2Image('input', image)
 
